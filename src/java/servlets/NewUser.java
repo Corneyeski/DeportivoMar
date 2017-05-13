@@ -6,8 +6,11 @@
 package servlets;
 
 import ejb.DeportivoEJB;
+import entities.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.Instant;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +28,32 @@ public class NewUser extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        String nombre = request.getParameter("nombre");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String apellido = request.getParameter("apellido");
+        String telefono = request.getParameter("telefono");
+        String direccion = request.getParameter("direccion");
+        String cp = request.getParameter("cp");
+        
+        
+        Usuario user = new Usuario();
+        user.setNombre(nombre);
+        user.setApellidos(apellido);
+        user.setPass(password);
+        user.setCp(cp);
+        user.setDireccion(direccion);
+        user.setTelefono(telefono);
+        user.setMail(email);
+        user.setFechaAlta(Date.from(Instant.now()));
+        user.setIdnif("nada");
+        
+        
+        if(ejb.insertUser(user)){
+            response.sendRedirect(request.getContextPath() + "/vistas/login.jsp");
+        }else{
+            response.sendRedirect(request.getContextPath() + "/vistas/main.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

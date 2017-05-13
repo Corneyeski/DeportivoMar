@@ -31,9 +31,9 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
 
         if (ejb.login(nombre, password)) {
-            response.sendRedirect(request.getContextPath() + "/main.jsp");
+            response.sendRedirect(request.getContextPath() + "/vistas/main.jsp");
         } else {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/vistas/login.jsp");
         }
     }
 

@@ -24,6 +24,7 @@ public class DeportivoEJB {
     public boolean login(String n, String p) {
         EntityManager em = emf.createEntityManager();
         Usuario encontrado = em.find(Usuario.class, n);
+        //Usuario encontrado = em.createQuery("Select u FROM Usuario u WHERE u.nombre = :nombre").getFirstResult();
         em.close();
         return encontrado != null && encontrado.getPass().equals(p);
     }
@@ -39,7 +40,7 @@ public class DeportivoEJB {
         if (!existUser(u.getNombre())) {
             EntityManager em = emf.createEntityManager();
             em.persist(u);
-//        em.flush();   Para forzar que se haga ahora
+            em.flush();
             em.close();
             return true;
         }

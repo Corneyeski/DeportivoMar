@@ -44,8 +44,15 @@
                     </tr>
                     <tr>
                         <td id="boton_2">
-                            <form action="accesoUsuario.jsp" method="post">
+                            <form action="vistas/login.jsp" method="post">
                               <input type="submit" value="Acceso Usuarios"/>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="boton_3">
+                            <form action="vistas/registro.jsp" method="post">
+                              <input type="submit" value="registro"/>
                             </form>
                         </td>
                     </tr>
