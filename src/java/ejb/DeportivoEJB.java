@@ -41,7 +41,8 @@ public class DeportivoEJB {
     
     public boolean existUser(String n) {
         EntityManager em = emf.createEntityManager();
-        Usuario encontrado = em.find(Usuario.class, n);
+        //Usuario encontrado = em.find(Usuario.class, n);
+        Usuario encontrado = (Usuario) em.createNamedQuery("Usuario.findByNombre").setParameter("nombre", n).getResultList().get(0);
         em.close();
         return encontrado != null;
     }
