@@ -37,7 +37,7 @@
                 <table>
                     <tr>
                         <td id="boton_1">
-                            <form action="administracion.jsp" method="post">
+                            <form action="admin/menuA.jsp" method="post">
                               <input type="submit" value="Acceso Administrador"/>
                             </form>
                         </td>

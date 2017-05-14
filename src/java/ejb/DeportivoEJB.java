@@ -5,11 +5,15 @@
  */
 package ejb;
 
+import entities.Actividad;
+import entities.Categoria;
 import entities.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,9 +25,15 @@ public class DeportivoEJB {
     @PersistenceUnit
     EntityManagerFactory emf;
     
+    
+    //Usuarios
+    
     public boolean login(String n, String p) {
         EntityManager em = emf.createEntityManager();
         Usuario encontrado = em.find(Usuario.class, n);
+        Query query = em.createNamedQuery("Usuario.findByNombre");
+        query.setParameter("nombre", n);
+        encontrado = (Usuario) query.getResultList().get(0);
         //Usuario encontrado = em.createQuery("Select u FROM Usuario u WHERE u.nombre = :nombre").getFirstResult();
         em.close();
         return encontrado != null && encontrado.getPass().equals(p);
@@ -39,11 +49,30 @@ public class DeportivoEJB {
     public boolean insertUser(Usuario u) {
         if (!existUser(u.getNombre())) {
             EntityManager em = emf.createEntityManager();
+            //No va
             em.persist(u);
             em.flush();
             em.close();
             return true;
         }
         return false;
+    }
+    
+    //Categorias
+    
+    public List<Categoria> allCategories(){
+        
+        List<Categoria> c = emf.createEntityManager().createNamedQuery("Categoria.findAll").getResultList();
+        
+        return c;
+    }
+    
+    //Actividades
+    
+    public List<Actividad> allActivities(){
+        
+        List<Actividad> c = emf.createEntityManager().createNamedQuery("Actividad.findAll").getResultList();
+        
+        return c;
     }
 }
