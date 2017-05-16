@@ -1,7 +1,7 @@
 
+<%@page import="java.util.List"%>
 <%@page import="entities.Actividad"%>
 <%@page import="entities.Categoria"%>
-<%@page import="servlets.Calls"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,14 +12,13 @@
         <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <% Calls c = new Calls();%>
         <div class="container">
             <div class="row">
                 <h1>Registro empleado</h1>
                 <form action="../../NewEmpleado" method="POST">
-                    <div class="form-group" method="POST">
+                    <div class="form-group">
                         <label for="dni">dni</label>
-                        <input type="text" name="dni" class="form-control" id="dni" required="true">
+                        <input type="text" name="dni" class="form-control" id="dni" required="">
                     </div>
                     <div class="form-group">
                         <label for="salario">Salario</label>
@@ -28,8 +27,9 @@
                     <div class="form-group">
                         <label for="categoria">categoria</label>
                         <select class="form-control" id="categoria" name="categoria">
-                            <% for (Categoria categoria : c.allCategories()) {%>
-                            <option value="<%= categoria%>"><%= categoria.getDescripcion()%></option>
+                            <% List<Categoria> cats = (List<Categoria>) request.getAttribute("categorias");
+                                for (Categoria categoria : cats) { %>
+                            <option value="<%= categoria.getIdcategoria() %>"><%= categoria.getDescripcion()%></option>
                             <% } %>
                         </select>
                     </div>
@@ -38,7 +38,7 @@
             </div>
             <div class="row">
                 <h1>Registro actividad</h1>
-                <form action="../../NewActivity">
+                <form action="../../NewActivity"  method="POST">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input type="text" name="nombre" class="form-control" placeholder="nombre">
@@ -52,16 +52,17 @@
             </div>
             <div class="row">
                 <h1>Registro sala</h1>
-                <form action="../NewSala">
-                    <div class="form-group" method="POST">
+                <form action="../NewSala"  method="POST">
+                    <div class="form-group">
                         <label for="descripcion">descripcion</label>
                         <input type="text" name="descripcion" class="form-control" id="descripcion">
                     </div>
                     <div class="form-group">
                         <label for="actividad">Actividad</label>
                         <select class="form-control" id="categoria" name="categoria">
-                            <% for (Actividad actividad : c.allActivities()) {%>
-                            <option value="<%= actividad%>"><%= actividad.getActividad()%></option>
+                            <% List<Actividad> activ = (List<Actividad>) request.getAttribute("actividades");
+                                for (Actividad actividad : activ) { %>
+                            <option value="<%=actividad.getIdactividad() %>"><%=actividad.getActividad() %></option>
                             <% }%>
                         </select>
                     </div>

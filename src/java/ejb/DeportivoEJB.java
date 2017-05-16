@@ -30,10 +30,11 @@ public class DeportivoEJB {
     
     public boolean login(String n, String p) {
         EntityManager em = emf.createEntityManager();
-        Usuario encontrado = em.find(Usuario.class, n);
+        // OJO que es´ta mal!!
+//        Usuario encontrado = em.find(Usuario.class, n);
         Query query = em.createNamedQuery("Usuario.findByNombre");
         query.setParameter("nombre", n);
-        encontrado = (Usuario) query.getResultList().get(0);
+        Usuario encontrado = (Usuario) query.getResultList().get(0);
         //Usuario encontrado = em.createQuery("Select u FROM Usuario u WHERE u.nombre = :nombre").getFirstResult();
         em.close();
         return encontrado != null && encontrado.getPass().equals(p);
@@ -42,15 +43,18 @@ public class DeportivoEJB {
     public boolean existUser(String n) {
         EntityManager em = emf.createEntityManager();
         //Usuario encontrado = em.find(Usuario.class, n);
-        Usuario encontrado = (Usuario) em.createNamedQuery("Usuario.findByNombre").setParameter("nombre", n).getResultList().get(0);
+        // OJO LISTA IS EMPTY
+        List<Usuario> encontrado = em.createNamedQuery("Usuario.findByNombre").setParameter("nombre", n).getResultList();
         em.close();
-        return encontrado != null;
+        
+        return !encontrado.isEmpty();
     }
     
     public boolean insertUser(Usuario u) {
         if (!existUser(u.getNombre())) {
             EntityManager em = emf.createEntityManager();
             //No va
+            
             em.persist(u);
             em.flush();
             em.close();

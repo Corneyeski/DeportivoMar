@@ -6,11 +6,10 @@
 package servlets;
 
 import ejb.DeportivoEJB;
-import entities.Usuario;
+import entities.Actividad;
+import entities.Categoria;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.Instant;
-import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,40 +20,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Alan
  */
-public class NewUser extends HttpServlet {
-@EJB DeportivoEJB ejb;
 
+public class Bridge extends HttpServlet {
+
+    @EJB DeportivoEJB ejb;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        List<Categoria> categorias = ejb.allCategories();
+        request.setAttribute("categorias", categorias);
         
-        String nombre = request.getParameter("nombre");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        String apellido = request.getParameter("apellido");
-        String telefono = request.getParameter("telefono");
-        String direccion = request.getParameter("direccion");
-        String cp = request.getParameter("cp");
+        //request.getRequestDispatcher("/vistas/admin/menuA.jsp").forward(request, response);
         
+        List<Actividad> activities = ejb.allActivities();
+        request.setAttribute("actividades", activities);
         
-        Usuario user = new Usuario();
-        user.setNombre(nombre);
-        user.setApellidos(apellido);
-        user.setPass(password);
-        user.setCp(cp);
-        user.setDireccion(direccion);
-        user.setTelefono(telefono);
-        user.setMail(email);
-        user.setFechaAlta(Date.from(Instant.now()));
-        user.setIdnif("nada");
-        
-        Usuario u = new Usuario("a", nombre, apellido, telefono, direccion, direccion, cp, Date.from(Instant.now()), email, password);
-        
-        if(ejb.insertUser(u)){
-            response.sendRedirect(request.getContextPath() + "/vistas/login.jsp");
-        }else{
-            response.sendRedirect(request.getContextPath() + "/vistas/main.jsp");
-        }
+        request.getRequestDispatcher("/vistas/admin/menuA.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

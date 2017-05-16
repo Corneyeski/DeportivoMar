@@ -11,8 +11,8 @@
     <body>
         <div class="container">
             <div class="row">
-                <form action="../NewUser">
-                    <div class="form-group" method="POST">
+                <form action="../NewUser"  method="POST">
+                    <div class="form-group">
                         <label for="email">Email address</label>
                         <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
                     </div>

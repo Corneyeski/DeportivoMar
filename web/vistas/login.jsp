@@ -1,8 +1,3 @@
-<%-- 
-    Document   : main02
-    Created on : 20-abr-2017, 20:30:05
-    Author     : david
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

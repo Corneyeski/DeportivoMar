@@ -8,6 +8,10 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>servlets.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Bridge</servlet-name>
+        <servlet-class>servlets.Bridge</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewUser</servlet-name>
         <url-pattern>/NewUser</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Bridge</servlet-name>
+        <url-pattern>/Bridge</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
